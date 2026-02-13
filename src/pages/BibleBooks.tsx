@@ -19,7 +19,7 @@ function BookSection({ title, books }: { title: string; books: string[] }) {
           >
             <Link
               to={`/bible/${encodeURIComponent(book)}`}
-              className="block px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-accent/60 transition-colors border border-transparent hover:border-border"
+              className="block px-3 py-2.5 rounded-lg text-sm font-medium text-foreground glass-card hover:border-primary/25 transition-all"
             >
               {book}
             </Link>

@@ -46,7 +46,7 @@ export default function BibleChapters() {
               >
                 <Link
                   to={`/bible/${encodeURIComponent(decodedBook)}/${ch}`}
-                  className="flex items-center justify-center h-12 rounded-lg text-sm font-medium text-foreground bg-card border border-border hover:bg-accent/60 hover:border-primary/30 transition-colors"
+                  className="flex items-center justify-center h-12 rounded-xl text-sm font-medium text-foreground glass-card hover:border-primary/25 transition-all"
                 >
                   {ch}
                 </Link>

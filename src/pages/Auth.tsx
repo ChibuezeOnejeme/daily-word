@@ -46,7 +46,7 @@ export default function AuthPage() {
           {isSignUp ? "Create Account" : "Sign In"}
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="glass-card p-6 space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -55,7 +55,7 @@ export default function AuthPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-card"
+              className="glass-input"
             />
           </div>
           <div className="space-y-2">
@@ -67,7 +67,7 @@ export default function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              className="bg-card"
+              className="glass-input"
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
