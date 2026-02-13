@@ -89,7 +89,7 @@ export async function fetchNotes(): Promise<Note[]> {
   return (data || []) as Note[];
 }
 
-export async function createNote(note: Omit<Note, "id" | "created_at">): Promise<Note> {
+export async function createNote(note: Omit<Note, "id" | "created_at" | "updated_at">): Promise<Note> {
   const { data, error } = await supabase
     .from("notes")
     .insert(note)
@@ -100,10 +100,10 @@ export async function createNote(note: Omit<Note, "id" | "created_at">): Promise
   return data as Note;
 }
 
-export async function updateNote(id: string, content: string): Promise<Note> {
+export async function updateNote(id: string, note: Partial<Note>): Promise<Note> {
   const { data, error } = await supabase
     .from("notes")
-    .update({ content })
+    .update({ ...note, updated_at: new Date().toISOString() })
     .eq("id", id)
     .select()
     .single();
@@ -115,4 +115,16 @@ export async function updateNote(id: string, content: string): Promise<Note> {
 export async function deleteNote(id: string): Promise<void> {
   const { error } = await supabase.from("notes").delete().eq("id", id);
   if (error) throw error;
+}
+
+export async function transcribeAudio(audioBlob: Blob): Promise<{ text: string }> {
+  const formData = new FormData();
+  formData.append('file', audioBlob, 'recording.webm');
+
+  const { data, error } = await supabase.functions.invoke('transcribe', {
+    body: formData,
+  });
+
+  if (error) throw error;
+  return data;
 }

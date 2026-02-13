@@ -3,6 +3,7 @@ import { fetchDailyDose } from "@/lib/queries";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { ShareButton } from "@/components/ShareButton";
 
 export default function DailyDose() {
   const { data: dose, isLoading } = useQuery({
@@ -34,13 +35,21 @@ export default function DailyDose() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="glass-card p-6 sm:p-8"
+      className="glass-card p-6 sm:p-8 relative"
     >
-      <div className="flex items-center gap-2 mb-4">
-        <Sparkles className="h-4 w-4 text-primary" />
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-          Daily Dose of Christ
-        </h2>
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-4 w-4 text-primary" />
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
+            Daily Dose of Christ
+          </h2>
+        </div>
+        <ShareButton
+          title="Daily Dose of Christ"
+          text={`"${dose.message}" - ${dose.book} ${dose.chapter}:${dose.verse}`}
+          size="sm"
+          className="h-8 w-8 rounded-full bg-background/50 hover:bg-background"
+        />
       </div>
 
       <blockquote className="font-scripture text-xl sm:text-2xl leading-relaxed text-foreground mb-4">

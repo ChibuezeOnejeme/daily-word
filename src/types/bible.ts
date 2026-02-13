@@ -20,11 +20,14 @@ export interface DailyDose {
 export interface Note {
   id: string;
   user_id: string;
-  book: string;
-  chapter: number;
+  book: string | null;
+  chapter: number | null;
   verse: number | null;
   content: string;
+  title: string | null;
+  tags: string[] | null;
   created_at: string;
+  updated_at: string | null;
 }
 
 export interface LastRead {
