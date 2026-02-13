@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Top nav */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 border-b glass-nav">
         <div className="container flex items-center justify-between h-14">
           <Link to="/" className="flex items-center gap-2">
             <BookOpen className="h-5 w-5 text-primary" />
@@ -69,7 +69,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1">{children}</main>
 
       {/* Mobile bottom nav */}
-      <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/95 backdrop-blur-sm">
+      <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-50 border-t glass-nav">
         <div className="flex justify-around py-2">
           {NAV_ITEMS.map(({ to, icon: Icon, label }) => {
             const active = location.pathname === to || (to !== "/" && location.pathname.startsWith(to));

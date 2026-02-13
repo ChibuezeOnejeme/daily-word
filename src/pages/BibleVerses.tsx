@@ -112,7 +112,7 @@ export default function BibleVersesPage() {
             ))}
           </div>
         ) : verses && verses.length > 0 ? (
-          <div className="bg-scripture/50 rounded-xl p-4 sm:p-6">
+          <div className="glass-card p-5 sm:p-7">
             <VerseList
               verses={verses}
               onVerseClick={user ? (v) => setNoteVerse(v) : undefined}

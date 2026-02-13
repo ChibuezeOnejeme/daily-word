@@ -33,7 +33,7 @@ export default function SearchPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder='Search by keyword or reference (e.g. "John 3:16")'
-            className="pl-10 bg-card"
+            className="pl-10 glass-input"
           />
         </form>
 
