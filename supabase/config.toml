@@ -1,1 +1,4 @@
 project_id = "vcdkujczzecjhdhyaedv"
+
+[functions.seed-bible]
+verify_jwt = false
