@@ -38,7 +38,7 @@ export async function fetchVerses(book: string, chapter: number): Promise<BibleV
 }
 
 export async function searchVerses(query: string): Promise<BibleVerse[]> {
-  // Try reference search first (e.g. "John 3:16")
+  // Try exact reference search first (e.g. "John 3:16")
   const refMatch = query.match(/^(.+?)\s+(\d+):(\d+)$/);
   if (refMatch) {
     const [, book, chapter, verse] = refMatch;
@@ -54,7 +54,35 @@ export async function searchVerses(query: string): Promise<BibleVerse[]> {
     if (data && data.length > 0) return data as BibleVerse[];
   }
 
-  // Keyword search
+  // Try book + chapter search (e.g. "John 3")
+  const chapterMatch = query.match(/^(.+?)\s+(\d+)$/);
+  if (chapterMatch) {
+    const [, book, chapter] = chapterMatch;
+    const { data, error } = await supabase
+      .from("bible_verses")
+      .select("*")
+      .ilike("book", `%${book.trim()}%`)
+      .eq("chapter", parseInt(chapter))
+      .order("verse")
+      .limit(200);
+
+    if (error) throw error;
+    if (data && data.length > 0) return data as BibleVerse[];
+  }
+
+  // Try book name search (e.g. "Genesis")
+  const { data: bookData, error: bookError } = await supabase
+    .from("bible_verses")
+    .select("*")
+    .ilike("book", `%${query}%`)
+    .eq("chapter", 1)
+    .order("verse")
+    .limit(50);
+
+  if (bookError) throw bookError;
+  if (bookData && bookData.length > 0) return bookData as BibleVerse[];
+
+  // Keyword search in verse text
   const { data, error } = await supabase
     .from("bible_verses")
     .select("*")
